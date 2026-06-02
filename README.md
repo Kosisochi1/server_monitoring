@@ -110,13 +110,13 @@ Target Unreachable
 
 Alertmanager receives alerts from Prometheus and handles:
 
-- Alert routing
+ - Alert routing
 
-- Alert grouping
+ - Alert grouping
 
-- Deduplication
+ - Deduplication
 
-- Notification delivery
+ - Notification delivery
 
 ## Alert Flow
 
