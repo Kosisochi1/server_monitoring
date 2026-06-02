@@ -106,7 +106,7 @@ Endpoint Downtime
 Target Unreachable
 
 
-##Alerting with Alertmanager
+## Alerting with Alertmanager
 
 Alertmanager receives alerts from Prometheus and handles:
 
@@ -115,20 +115,24 @@ Alert grouping
 Deduplication
 Notification delivery
 
-##Alert Flow
+## Alert Flow
 
-Application
+Application 
      │
      ▼
+
 Prometheus Scraping
      │
      ▼
+
 Prometheus Alert Rules
      │
      ▼
+
 Alertmanager
      │
      ▼
+     
 Slack Notifications
 
 
@@ -171,21 +175,21 @@ After login:
 
 
 
-##Example Monitoring Scenarios
+## Example Monitoring Scenarios
 
-###Infrastructure Monitoring
+### Infrastructure Monitoring
 - CPU utilization
 - Memory consumption
 - Disk usage
 - Network traffic
 
 
-###Application Monitoring
+### Application Monitoring
 - Endpoint availability
 - HTTP response status
 - Response latency
 
-###Alerting Scenarios
+### Alerting Scenarios
 - Server CPU exceeds threshold
 - Memory usage remains high for a sustained period
 - Application becomes unavailable
