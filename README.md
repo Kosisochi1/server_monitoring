@@ -1,4 +1,4 @@
-# Monitoring Stack with Prometheus, Grafana, Node Exporter & Blackbox Exporter
+# Monitoring Stack with Prometheus, Grafana, Node Exporter, Blackbox Exporter & Alertmanager
 
 ## Overview
 A complete Docker Compose monitoring stack for observing a sample stress application using:
@@ -7,12 +7,15 @@ A complete Docker Compose monitoring stack for observing a sample stress applica
  - Grafana
  - Node Exporter
  - Blackbox Exporter
+ - Alertmanager
 
 ## Features
 - Monitor application uptime and health
 - Collect host machine metrics
 - Visualize metrics in Grafana dashboards
 - Perform HTTP endpoint probing using Blackbox Exporter
+- Configure alerting rules for infrastructure and application monitoring
+- Route alerts to Slack using Alertmanager
 - Fully containerized with Docker Compose
 
 
@@ -21,6 +24,8 @@ A complete Docker Compose monitoring stack for observing a sample stress applica
 .
 ├── docker-compose.yml
 ├── prometheus.yml
+├── alertmanager.yml
+├── rules.yml
 ├── blackbox.yml
 └── README.md
 ```
@@ -35,6 +40,7 @@ The stack includes the following services:
 | Grafana             | 3000 | Visualization      |
 | Node Exporter       | 9100 | Host metrics       |
 | Blackbox Exporter   | 9115 | Endpoint probing   |
+| Alertmanager        | 9093 |Alert & Notification|
 
 
 ## Prerequisites
@@ -79,6 +85,7 @@ docker ps
 | Prometheus        | [http://localhost:9090](http://localhost:9090) |
 | Grafana           | [http://localhost:3000](http://localhost:3000) |
 | Blackbox Exporter | [http://localhost:9115](http://localhost:9115) |
+| Alertmanager      | [http://localhost:9093](http://localhost:9093) |
 
 ## Prometheus Configuration
 
@@ -86,6 +93,55 @@ Your Prometheus configuration scrapes:
 - Prometheus internal metrics
 - Node Exporter metrics
 - Blackbox HTTP probe metrics
+
+It also evaluate alert rules define in:
+```
+rules.yml
+```
+Alerts include:
+
+High CPU Usage
+High Memory Usage
+Endpoint Downtime
+Target Unreachable
+
+
+##Alerting with Alertmanager
+
+Alertmanager receives alerts from Prometheus and handles:
+
+Alert routing
+Alert grouping
+Deduplication
+Notification delivery
+
+##Alert Flow
+
+Application
+     │
+     ▼
+Prometheus Scraping
+     │
+     ▼
+Prometheus Alert Rules
+     │
+     ▼
+Alertmanager
+     │
+     ▼
+Slack Notifications
+
+
+##Slack Integration
+
+Alertmanager is configured to send notifications to Slack whenever alert thresholds are exceeded.
+
+Examples:
+
+Application unavailable
+High CPU utilization
+Memory pressure
+Failed HTTP endpoint probes
 
 ## Grafana Setup
 
@@ -112,6 +168,28 @@ After login:
 | ------------------ | ---- |
 | Node Exporter Full | 1860 |
 | Blackbox Exporter  | 7587 |
+
+
+
+##Example Monitoring Scenarios
+
+###Infrastructure Monitoring
+- CPU utilization
+- Memory consumption
+- Disk usage
+- Network traffic
+
+
+###Application Monitoring
+- Endpoint availability
+- HTTP response status
+- Response latency
+
+###Alerting Scenarios
+- Server CPU exceeds threshold
+- Memory usage remains high for a sustained period
+- Application becomes unavailable
+- Blackbox probe fails
 
 
 ## Stopping the Stack
