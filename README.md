@@ -115,7 +115,7 @@ Alertmanager receives alerts from Prometheus and handles:
  - Notification delivery
 
 ## Alert Flow
-
+```
 Application 
      │
      ▼
@@ -133,7 +133,7 @@ Alertmanager
      ▼
 
 Slack Notifications
-
+```
 
 ## Slack Integration
 
