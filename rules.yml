@@ -1,0 +1,49 @@
+groups:
+  - name: Memory Usage
+    rules:
+      - alert: HighMemoryUsage
+        expr: clamp_min((1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100, 0) > 20
+        for: 5s
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Memory usage detected"
+          description: "Memory usage is above 20% for the last 5 minutes"
+
+  
+  - name: CPU Usage
+    rules:
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 20
+        for: 30s
+        labels:
+          severity: Critical
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage is above 20% for more than 2 minutes on {{ $labels.instance }}"
+
+
+
+  - name: Sever Down
+    rules:
+      - alert: ServerDown
+        expr: up{instance="node_exporter:9100"} == 0
+        for: 20s
+        labels:
+          severity: Critical
+        annotations:
+          summary: "Server down"
+          description: "Server {{ $labels.instance }} is down"
+
+
+
+  - name: App Down
+    rules:
+      - alert: AppDown
+        expr: probe_success{instance="http://stress-app:8085/"} < 1
+        for: 20s
+        labels:
+          severity: Critical
+        annotations:
+          summary: "App down"
+          description: "App {{ $labels.instance }} is down"
