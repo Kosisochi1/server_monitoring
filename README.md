@@ -109,50 +109,41 @@ Target Unreachable
 ## Alerting with Alertmanager
 
 Alertmanager receives alerts from Prometheus and handles:
-
  - Alert routing
-
  - Alert grouping
-
  - Deduplication
-
  - Notification delivery
 
 ## Alert Flow
 
 Application 
-
      │
      ▼
 
 Prometheus Scraping
-
      │
      ▼
 
 Prometheus Alert Rules
-
      │
      ▼
 
 Alertmanager
-
      │
      ▼
 
 Slack Notifications
 
 
-##Slack Integration
+## Slack Integration
 
 Alertmanager is configured to send notifications to Slack whenever alert thresholds are exceeded.
 
 Examples:
-
-Application unavailable
-High CPU utilization
-Memory pressure
-Failed HTTP endpoint probes
+- Application unavailable
+- High CPU utilization
+- pressure
+- Failed HTTP endpoint probes
 
 ## Grafana Setup
 
